@@ -1,6 +1,6 @@
 'use strict';
 
-var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x3, _x4, _x5) { var _again = true; _function: while (_again) { var object = _x3, property = _x4, receiver = _x5; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x3 = parent; _x4 = property; _x5 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -18,12 +18,9 @@ var COLORS = ['#AC00FF', // purple
 '#00FFB4' // teal
 ];
 var FLOWER_RADIUS = 14;
+var VIRUS_START_RADIUS = 50;
 
 function _$(element) {}
-
-function $(element) {
-  return new _$(element);
-}
 
 _$.prototype.ready = function (callback) {
   document.addEventListener("DOMContentLoaded", function (event) {
@@ -31,13 +28,23 @@ _$.prototype.ready = function (callback) {
   }, false);
 };
 
+function $(element) {
+  return new _$(element);
+}
+
 $(document).ready(function () {
   var canvas = new Canvas();
   window.canvasReset = canvas.reset;
+  canvas.drawGrid();
+
+  var i;
+  for (i = 0; i < 5; i++) {
+    canvas.addVirus();
+  }
 
   setInterval(function () {
     canvas.addDot();
-  }, 500);
+  }, 1000);
 });
 
 var Canvas = (function () {
@@ -76,6 +83,38 @@ var Canvas = (function () {
         radius: FLOWER_RADIUS,
         color: randElement(COLORS)
       });
+    }
+  }, {
+    key: 'addVirus',
+    value: function addVirus() {
+      var ctx = this.canvas.getContext('2d');
+
+      var randX = randBetween(this.canvas.width);
+      var randY = randBetween(this.canvas.height);
+
+      createCanvasVirus(ctx, {
+        xPos: randX,
+        yPos: randY,
+        radius: VIRUS_START_RADIUS,
+        color: '#36FF00'
+      });
+    }
+  }, {
+    key: 'drawGrid',
+    value: function drawGrid() {
+      var ctx = this.canvas.getContext('2d');
+      for (var x = 0.5; x < this.canvas.width; x += 20) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, this.canvas.height);
+      }
+
+      for (var y = 0.5; y < this.canvas.height; y += 20) {
+        ctx.moveTo(0, y);
+        ctx.lineTo(this.canvas.width, y);
+      }
+
+      ctx.strokeStyle = "#ddd";
+      ctx.stroke();
     }
   }]);
 
@@ -123,6 +162,20 @@ var Blob = (function (_Cell3) {
 })(Cell);
 
 function createCanvasCircle(ctx) {
+  var opts = arguments.length <= 1 || arguments[1] === undefined ? {
+    xPos: xPos,
+    yPos: yPos,
+    radius: 1,
+    color: '#000000'
+  } : arguments[1];
+
+  var path = new Path2D();
+  path.arc(opts.xPos, opts.yPos, opts.radius, 0, Math.PI * 2, true);
+  ctx.fillStyle = opts.color;
+  ctx.fill(path);
+}
+
+function createCanvasVirus(ctx) {
   var opts = arguments.length <= 1 || arguments[1] === undefined ? {
     xPos: xPos,
     yPos: yPos,
