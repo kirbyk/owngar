@@ -9,27 +9,34 @@ const COLORS = [
   '#00FFB4'  // teal
 ];
 const FLOWER_RADIUS = 14;
+const VIRUS_START_RADIUS = 50;
 
 function _$(element) {
+}
+
+_$.prototype.ready = callback => {
+  document.addEventListener("DOMContentLoaded", event => {
+    callback();
+  }, false);
 }
 
 function $(element) {
   return new _$(element);
 }
 
-_$.prototype.ready = callback => {
-  document.addEventListener("DOMContentLoaded", event => {
-    callback();
-  }, false );
-}
-
 $(document).ready(() => { 
   const canvas = new Canvas();
   window.canvasReset = canvas.reset;
+  canvas.drawGrid();
+
+  var i;
+  for(i = 0; i < 5; i++){
+    canvas.addVirus();
+  }
 
   setInterval(() => {
     canvas.addDot();
-  }, 500);
+  }, 1000);
 });
 
 class Canvas {
@@ -63,6 +70,36 @@ class Canvas {
       color: randElement(COLORS)
     });
   }
+
+  addVirus() {
+    const ctx = this.canvas.getContext('2d');
+
+    const randX = randBetween(this.canvas.width);
+    const randY = randBetween(this.canvas.height);
+
+    createCanvasVirus(ctx, {
+      xPos: randX,
+      yPos: randY,
+      radius: VIRUS_START_RADIUS,
+      color: '#36FF00'
+    });
+  }
+
+  drawGrid() {
+    const ctx = this.canvas.getContext('2d');
+    for (var x = 0.5; x < this.canvas.width; x += 20) {
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, this.canvas.height);
+    }
+
+    for (var y = 0.5; y < this.canvas.height; y += 20) {
+      ctx.moveTo(0, y);
+      ctx.lineTo(this.canvas.width, y);
+    }
+
+    ctx.strokeStyle = "#ddd";
+    ctx.stroke();
+  }
 }
 
 class Cell {
@@ -90,6 +127,19 @@ function createCanvasCircle(ctx, opts = {
   ctx.fillStyle = opts.color;
   ctx.fill(path);
 }
+
+function createCanvasVirus(ctx, opts = {
+                                          xPos, 
+                                          yPos, 
+                                          radius: 1,
+                                          color: '#000000'
+                                        }) {
+  const path = new Path2D();
+  path.arc(opts.xPos, opts.yPos, opts.radius, 0, Math.PI * 2, true);
+  ctx.fillStyle = opts.color;
+  ctx.fill(path);
+}
+
 
 function randElement(arr) {
   return arr[randBetween(arr.length)];
