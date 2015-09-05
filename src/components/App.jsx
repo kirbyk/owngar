@@ -15,16 +15,8 @@ export default class App extends React.Component {
   componentDidMount() {
     this._windowDidResize();
     this._setupCanvas();
-
-    for(let i = 0; i < Constants.numberOfViruses; i++) {
-      const virus = new Virus(this._context, this.state);
-      virus.draw();
-    }
-
-    setInterval(() => {
-      const flower = new Flower(this._context, this.state);
-      flower.draw();
-    }, 500);
+    this._addViruses();
+    this._addFlowers();
   }
 
   _windowDidResize() {
@@ -43,6 +35,20 @@ export default class App extends React.Component {
   _setupCanvas() {
     this._canvas = React.findDOMNode(this);
     this._context = this._canvas.getContext('2d');
+  }
+
+  _addViruses() {
+    for(let i = 0; i < Constants.numberOfViruses; i++) {
+      const virus = new Virus(this._context, this.state);
+      virus.draw();
+    }
+  }
+
+  _addFlowers() {
+    setInterval(() => {
+      const flower = new Flower(this._context, this.state);
+      flower.draw();
+    }, 500);
   }
 
   render() {
