@@ -19,10 +19,27 @@ export default class App extends React.Component {
     this._addFlowers();
   }
 
-  _windowDidResize() {
-    window.onresize = event => {
-      this.setState(this._getWindowDimensions());
-    };
+  render() {
+    return (
+      <canvas
+        width={this.state.width}
+        height={this.state.height}
+      />
+    );
+  }
+
+  _addFlowers() {
+    setInterval(() => {
+      const flower = new Flower(this._context, this.state);
+      flower.draw();
+    }, 500);
+  }
+
+  _addViruses() {
+    for(let i = 0; i < Constants.numberOfViruses; i++) {
+      const virus = new Virus(this._context, this.state);
+      virus.draw();
+    }
   }
 
   _getWindowDimensions() {
@@ -37,27 +54,10 @@ export default class App extends React.Component {
     this._context = this._canvas.getContext('2d');
   }
 
-  _addViruses() {
-    for(let i = 0; i < Constants.numberOfViruses; i++) {
-      const virus = new Virus(this._context, this.state);
-      virus.draw();
-    }
-  }
-
-  _addFlowers() {
-    setInterval(() => {
-      const flower = new Flower(this._context, this.state);
-      flower.draw();
-    }, 500);
-  }
-
-  render() {
-    return (
-      <canvas
-        width={this.state.width}
-        height={this.state.height}
-      />
-    );
+  _windowDidResize() {
+    window.onresize = event => {
+      this.setState(this._getWindowDimensions());
+    };
   }
 
 }
