@@ -1,6 +1,6 @@
 export default {
   flowerRadius: 14,
-  flowerColors: [
+  circleColors: [
     '#AC00FF', // purple
     '#E100FF', // lightPurple
     '#F9FF00', // yellow
@@ -12,6 +12,7 @@ export default {
   ],
   flowerInsertionInterval: 500,
   numberOfViruses: 5,
+  playerInitialRadius: 30,
   virusRadius: 100,
   virusColor: '#1AFF0F' // electricLimeGreen
 };

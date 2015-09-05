@@ -1,5 +1,6 @@
 import Constants from '../constants';
 import Flower from './Flower';
+import Player from './Player';
 import React from 'react';
 import ReactCanvas from 'react-canvas';
 import Virus from './Virus';
@@ -8,6 +9,7 @@ import Virus from './Virus';
 export default class App extends React.Component {
 
   constructor() {
+    super();
     this.state = this._getWindowDimensions();
   }
 
@@ -16,6 +18,7 @@ export default class App extends React.Component {
     this._setupCanvas();
     this._addViruses();
     this._addFlowers();
+    this._addPlayer();
   }
 
   render() {
@@ -32,6 +35,12 @@ export default class App extends React.Component {
       const flower = new Flower(this._context, this.state);
       flower.draw();
     }, Constants.flowerInsertionInterval);
+  }
+
+  _addPlayer() {
+    console.log('add player');
+    const player = new Player(this._context, this.state);
+    player.draw();
   }
 
   _addViruses() {
