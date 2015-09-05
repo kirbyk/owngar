@@ -7,8 +7,7 @@ import Virus from './Virus';
 
 export default class App extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
     this.state = this._getWindowDimensions();
   }
 
