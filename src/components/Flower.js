@@ -7,17 +7,8 @@ export default class Flower extends Circle {
 
   constructor(context, props) {
     super(context, props);
-  }
-
-  draw() {
-    const { randX, randY } = this._getRandXY();
-
-    this._createCanvasCircle(this._context, {
-      xPos: randX,
-      yPos: randY,
-      radius: Constants.flowerRadius,
-      color: randElement(Constants.flowerColors)
-    });
+    this._radius = Constants.flowerRadius;
+    this._color = randElement(Constants.flowerColors);
   }
 
 }

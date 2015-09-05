@@ -6,30 +6,21 @@ export default class Circle {
 
   constructor(context, props) {
     this._context = context;
-    this.props = props;
+    this._radius = 1;
+    this._color = '#000000';
+    this._xPos = randBetween(props.width);
+    this._yPos = randBetween(props.height);
   }
 
   draw() {
-    this._createCanvasCircle(this._context);
+    this._createCanvasCircle();
   }
 
-  _getRandXY() {
-    return {
-      randX: randBetween(this.props.width),
-      randY: randBetween(this.props.height)
-    }
-  }
-
-  _createCanvasCircle(ctx, opts = {
-                                    xPos: this.props.width / 2,
-                                    yPos: this.props.height / 2,
-                                    radius: 1,
-                                    color: '#000000'
-                                  }) {
+  _createCanvasCircle() {
     const path = new Path2D();
-    path.arc(opts.xPos, opts.yPos, opts.radius, 0, Math.PI * 2, true);
-    ctx.fillStyle = opts.color;
-    ctx.fill(path);
+    path.arc(this._xPos, this._yPos, this._radius, 0, Math.PI * 2, true);
+    this._context.fillStyle = this._color;
+    this._context.fill(path);
   }
 
 }
