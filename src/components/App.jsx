@@ -1,6 +1,8 @@
+import Constants from '../constants';
 import Flower from './Flower';
 import React from 'react';
 import ReactCanvas from 'react-canvas';
+import Virus from './Virus';
 
 
 export default class App extends React.Component {
@@ -13,6 +15,11 @@ export default class App extends React.Component {
   componentDidMount() {
     this._windowDidResize();
     this._setupCanvas();
+
+    for(let i = 0; i < Constants.numberOfViruses; i++) {
+      const virus = new Virus(this._context, this.state);
+      virus.draw();
+    }
 
     setInterval(() => {
       const flower = new Flower(this._context, this.state);

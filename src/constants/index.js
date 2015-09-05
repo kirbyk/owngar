@@ -9,5 +9,8 @@ export default {
     '#FF0032', // red
     '#36FF00', // limeGreen
     '#00FFB4'  // teal
-  ]
+  ],
+  numberOfViruses: 5,
+  virusRadius: 100,
+  virusColor: '#1AFF0F'
 };
