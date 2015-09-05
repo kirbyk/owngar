@@ -10,7 +10,8 @@ export default {
     '#36FF00', // limeGreen
     '#00FFB4'  // teal
   ],
+  flowerInsertionInterval: 500,
   numberOfViruses: 5,
   virusRadius: 100,
-  virusColor: '#1AFF0F'
+  virusColor: '#1AFF0F' // electricLimeGreen
 };

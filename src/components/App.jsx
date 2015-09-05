@@ -32,7 +32,7 @@ export default class App extends React.Component {
     setInterval(() => {
       const flower = new Flower(this._context, this.state);
       flower.draw();
-    }, 500);
+    }, Constants.flowerInsertionInterval);
   }
 
   _addViruses() {
