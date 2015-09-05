@@ -1,5 +1,3 @@
-var webpack = require('webpack');
-
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -13,6 +11,9 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel'
       }
+    ],
+    postLoaders: [
+      { loader: "transform?brfs" }
     ]
   }
 };
