@@ -1,7 +1,8 @@
 import Constants from '../constants';
-import { randElement, randBetween } from '../util';
+import { randBetween } from '../util';
 
-export default class Flower {
+
+export default class Circle {
 
   constructor(context, props) {
     this._context = context;
@@ -9,20 +10,19 @@ export default class Flower {
   }
 
   draw() {
-    const randX = randBetween(this.props.width);
-    const randY = randBetween(this.props.height);
+    this._createCanvasCircle(this._context);
+  }
 
-    this._createCanvasCircle(this._context, {
-      xPos: randX,
-      yPos: randY,
-      radius: Constants.flowerRadius,
-      color: randElement(Constants.flowerColors)
-    });
+  _getRandXY() {
+    return {
+      randX: randBetween(this.props.width),
+      randY: randBetween(this.props.height)
+    }
   }
 
   _createCanvasCircle(ctx, opts = {
-                                    xPos, 
-                                    yPos, 
+                                    xPos: this.props.width / 2,
+                                    yPos: this.props.height / 2,
                                     radius: 1,
                                     color: '#000000'
                                   }) {

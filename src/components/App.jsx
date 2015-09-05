@@ -1,4 +1,4 @@
-import Flower from './Flower.jsx';
+import Flower from './Flower';
 import React from 'react';
 import ReactCanvas from 'react-canvas';
 
