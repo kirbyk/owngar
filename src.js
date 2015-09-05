@@ -1,4 +1,7 @@
+import App from './components/App.jsx';
 import React from 'react';
 
-
-React.render(<div>hello world</div>, document.getElementById('main-view'));
+React.render(
+  <App />,
+  document.getElementById('main-view')
+);
