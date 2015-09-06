@@ -13,8 +13,8 @@ export default class App extends React.Component {
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight,
-      mouseX: window.innerWidth / 2,
-      mouseY: window.innerHeight / 2,
+      playerXPos: window.innerWidth / 2,
+      playerYPos: window.innerHeight / 2,
       flowers: [],
       viruses: []
     };
@@ -28,12 +28,11 @@ export default class App extends React.Component {
   }
 
   render() {
-
     return (
       <Surface width={this.state.width} height={this.state.height} left={0} top={0}>
         {this.state.flowers}
         {this.state.viruses}
-        <Player xPos={this.state.mouseX} yPos={this.state.mouseY}/>
+        <Player xPos={this.state.playerXPos} yPos={this.state.playerYPos}/>
       </Surface>
     );
   }
@@ -59,8 +58,8 @@ export default class App extends React.Component {
 
       this.setState({
         ...this.state,
-        mouseX: clientX,
-        mouseY: clientY
+        playerXPos: clientX,
+        playerYPos: clientY
       });
     });
   }
