@@ -1,17 +1,16 @@
-import Constants from '../constants';
 import Circle from './Circle';
+import Constants from '../constants';
 import { randElement } from '../util';
 
 
 export default class Player extends Circle {
 
-  constructor(context, props) {
-    super(context, props);
+  constructor(props) {
+    super(props);
+    this._xPos = window.innerWidth / 2;
+    this._yPos = window.innerHeight / 2;
     this._radius = Constants.playerInitialRadius;
     this._color = randElement(Constants.circleColors);
-    this._xPos = props.width / 2;
-    this._yPos = props.height / 2;
   }
 
 }
-

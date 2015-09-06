@@ -1,12 +1,14 @@
-import Constants from '../constants';
 import Circle from './Circle';
-import { randElement } from '../util';
+import Constants from '../constants';
+import { randBetween, randElement } from '../util';
 
 
 export default class Flower extends Circle {
 
-  constructor(context, props) {
-    super(context, props);
+  constructor(props) {
+    super(props);
+    this._xPos = randBetween(window.innerWidth);
+    this._yPos = randBetween(window.innerHeight);
     this._radius = Constants.flowerRadius;
     this._color = randElement(Constants.circleColors);
   }

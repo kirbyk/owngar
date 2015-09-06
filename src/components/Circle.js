@@ -1,26 +1,34 @@
 import Constants from '../constants';
+import React from 'react';
+import { Circle as CanvasCircle } from 'react-canvas';
 import { randBetween } from '../util';
 
 
-export default class Circle {
+export default class Circle extends React.Component {
 
-  constructor(context, props) {
-    this._context = context;
+  constructor(props) {
+    super(props);
+    this._xPos = randBetween(window.innerWidth);
+    this._yPos = randBetween(window.innerHeight);
     this._radius = 1;
     this._color = '#000000';
-    this._xPos = randBetween(props.width);
-    this._yPos = randBetween(props.height);
   }
 
-  draw() {
-    this._createCanvasCircle();
+  render() {
+    var style = this._getStyle();
+
+    return (
+      <CanvasCircle style={style} />
+    );
   }
 
-  _createCanvasCircle() {
-    const path = new Path2D();
-    path.arc(this._xPos, this._yPos, this._radius, 0, Math.PI * 2, true);
-    this._context.fillStyle = this._color;
-    this._context.fill(path);
+  _getStyle() {
+    return {
+      xPos: this._xPos,
+      yPos: this._yPos,
+      radius: this._radius,
+      color: this._color
+    };
   }
 
 }
