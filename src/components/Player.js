@@ -7,10 +7,20 @@ export default class Player extends Circle {
 
   constructor(props) {
     super(props);
-    this._xPos = window.innerWidth / 2;
-    this._yPos = window.innerHeight / 2;
-    this._radius = Constants.playerInitialRadius;
-    this._color = randElement(Constants.circleColors);
+    this.state = {
+      xPos: props.xPos,
+      yPos: props.yPos,
+      radius: Constants.playerInitialRadius,
+      color: randElement(Constants.circleColors)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...this.state,
+      xPos: nextProps.xPos,
+      yPos: nextProps.yPos
+    });
   }
 
 }

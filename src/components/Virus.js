@@ -7,10 +7,12 @@ export default class Virus extends Circle {
 
   constructor(props) {
     super(props);
-    this._xPos = randBetween(window.innerWidth);
-    this._yPos = randBetween(window.innerHeight);
-    this._radius = Constants.virusRadius;
-    this._color = Constants.virusColor;
+    this.state = {
+      xPos: randBetween(window.innerWidth),
+      yPos: randBetween(window.innerHeight),
+      radius: Constants.virusRadius,
+      color: Constants.virusColor
+    };
   }
 
 }

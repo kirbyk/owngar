@@ -8,10 +8,12 @@ export default class Circle extends React.Component {
 
   constructor(props) {
     super(props);
-    this._xPos = randBetween(window.innerWidth);
-    this._yPos = randBetween(window.innerHeight);
-    this._radius = 1;
-    this._color = '#000000';
+    this.state = {
+      xPos: randBetween(window.innerWidth),
+      yPos: randBetween(window.innerHeight),
+      radius: 1,
+      color: '#000000'
+    };
   }
 
   render() {
@@ -24,10 +26,10 @@ export default class Circle extends React.Component {
 
   _getStyle() {
     return {
-      xPos: this._xPos,
-      yPos: this._yPos,
-      radius: this._radius,
-      color: this._color
+      xPos: this.state.xPos,
+      yPos: this.state.yPos,
+      radius: this.state.radius,
+      color: this.state.color
     };
   }
 

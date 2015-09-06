@@ -7,10 +7,12 @@ export default class Flower extends Circle {
 
   constructor(props) {
     super(props);
-    this._xPos = randBetween(window.innerWidth);
-    this._yPos = randBetween(window.innerHeight);
-    this._radius = Constants.flowerRadius;
-    this._color = randElement(Constants.circleColors);
+    this.state = {
+      xPos: randBetween(window.innerWidth),
+      yPos: randBetween(window.innerHeight),
+      radius: Constants.flowerRadius,
+      color: randElement(Constants.circleColors)
+    };
   }
 
 }
