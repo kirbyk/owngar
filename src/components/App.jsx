@@ -13,6 +13,8 @@ export default class App extends React.Component {
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight,
+      playerXPos: window.innerWidth / 2,
+      playerYPos: window.innerHeight / 2,
       flowers: [],
       viruses: []
     };
@@ -20,17 +22,17 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this._windowDidResize();
+    this._bindMouse();
     this._addViruses();
     this._addFlowers();
   }
 
   render() {
-
     return (
       <Surface width={this.state.width} height={this.state.height} left={0} top={0}>
         {this.state.flowers}
         {this.state.viruses}
-        <Player />
+        <Player xPos={this.state.playerXPos} yPos={this.state.playerYPos}/>
       </Surface>
     );
   }
@@ -48,6 +50,18 @@ export default class App extends React.Component {
     for(let i = 0; i < Constants.numberOfViruses; i++) {
       this.state.viruses.push(<Virus key={`virus-${i}`}/>);
     }
+  }
+
+  _bindMouse() {
+    document.addEventListener('mousemove', event => {
+      const { clientX, clientY } = event;
+
+      this.setState({
+        ...this.state,
+        playerXPos: clientX,
+        playerYPos: clientY
+      });
+    });
   }
 
   _windowDidResize() {
