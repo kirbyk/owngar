@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/kirbyk/owngar#readme",
   "dependencies": {
-    "react": "^0.13.3",
+    "react": "^0.14.10",
     "react-canvas": "git://github.com/kirbyk/react-canvas.git"
   },
   "devDependencies": {
